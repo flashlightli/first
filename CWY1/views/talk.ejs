@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script>
+            function onfabiao() {
+                if($("#text").val()==""){
+                   alert("talk不能为空");
+                   $("#fabiao").disable="true";
+                } else {
+                    var username=document.getElementById("username").innerHTML;
+                    var text=$("#text").val();
+                    var mydate=new Date();
+                    var mytime=mydate.toLocaleString();
+                    $.ajax({
+                        url:"/addtalk",
+                        type:"post",
+                        contentType: "application/json",
+                        data:JSON.stringify({
+                            'username':username,
+                            'text':text,
+                            'mytime':mytime
+                        }),
+                        processData:false,
+                        success:function(data){
+                            document.getElementById("msg").innerHTML=data;
+                            $("#text").val("");
+                            document.getElementById("newtalk").innerHTML+="<h3><img src='/images/login2.png' class='img-circle' style='width: 46px;height: 46px;border-radius: 23px; border: 1px solid #666666; margin-left:1%;' />"+username
+                                +"</h3><h5 style=\'margin-left: 1.5%;\'>"+text+"</h5><h4 style='text-align: right;'>"+mytime+"</h4><hr>";
+
+                            setTimeout(function(){document.getElementById("msg").innerHTML="&nbsp;";},3000);
+                        },
+                        error:function(e){
+                        }
+                    })
+                }
+            }
+    </script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <% include top.ejs %>
+            <div class="row clearfix" style="margin-top: 3%;">
+                <div class="col-md-4 column">
+                    <img alt="" src="/images/login2.png" class="img-circle" style="width: 120px;height: 120px;border-radius: 60px; border: 1px solid #666666; margin-left: 25%;" />
+                </div>
+                <div class="col-md-8 column">
+                    <h3>
+                        <%= username %>
+                    </h3>
+                    <p>
+                        欢迎来到Contact &nbsp;&nbsp;With&nbsp;&nbsp;You&nbsp;!
+                    </p>
+                </div>
+            </div>
+            <div class="row clearfix" style="margin-top: 5%;">
+                <div class="col-md-9 column">
+                    <div class="row clearfix">
+                        <div class="col-md-4 column">
+                            <ul class="nav nav-stacked nav-pills">
+                                <li>
+                                    <a href="/person/<%= username%>" onclick="clickPer()">个人中心</a>
+                                </li>
+                                <li>
+                                    <a href="/page/one">Talk</a>
+                                </li>
+                                <li >
+                                    <a href="/mypage/<%= username %>/one">心情随笔</a>
+                                </li>
+                                <li >
+                                    <a href="#">更多</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 column" style="border: 2px solid #888888; border-radius: 2%;">
+
+                                <h5>说--talk</h5>
+                                <textarea  rows="3" cols="60" style="border-radius: 2%;border: 1px solid #000;" id="text" name="text"></textarea>
+                                <br>
+                                <input  type="submit" class="btn btn-default"  style=" width: 16%;" id="fabiao" value="发表" onclick="onfabiao()"></input>
+
+                            <p id="msg"></p>
+                             <p id="newtalk"></p>
+                            <div id="qqq">
+                                <% for(var i=0;i<datas.length;i++) {%>
+                                    <h3><img src="/images/login2.png" class="img-circle" style="width: 46px;height: 46px;border-radius: 23px; border: 1px solid #666666; margin-left:1%;" /><%= datas[i].username %></h3>
+                                <br>
+                                    <h5 style="margin-left: 1.5%;"><%= datas[i].talk %></h5>
+                                    <h4 style="text-align: right;"><%= datas[i].time %></h4>
+                                    <hr>
+                                    <br>
+                                <% } %>
+                            </div>
+
+                            <ul class="pagination">
+                                <li><a href="/page/<%= qpage=qpage-1 %>">&laquo;</a></li>
+                                <li><a href="/page/one">1</a></li>
+                                <% if(datas.length<=4){
+                                    qpage=qpage-1;
+                                }%>
+                                <li id="more"><a href="/page/<%= qpage=qpage+2 %>" id="more">&raquo;</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 column">
+                    <ul class="nav nav-tabs nav-stacked">
+                        <li class="active" >
+                            <a href="#" style="background-color: #999999;">联系人</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">张三</a>
+                        </li>
+                        <li>
+                            <a href="#">李四</a>
+                        </li>
+                        <li class="disabled">
+                            <a href="#">王五</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12 column" style="margin-top:3%;">
+                    <h4>
+                        CMY &nbsp;&nbsp;Contact&nbsp;With&nbsp;You&nbsp;&nbsp;@版权所有&nbsp;&nbsp;2017-8-15
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

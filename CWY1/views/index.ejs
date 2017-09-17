@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script>
+        function exam() {
+            var username=document.getElementById("username").value;
+            var errmsg=document.getElementById("errmsg");
+            var password=document.getElementById("password").value;
+            if(username==""&&password==""){
+                   errmsg.innerHTML="用户名 密码不能为空";
+                   return false;
+            }
+            var p=/\s+/g;
+            if(p.test(username)){
+                errmsg.innerHTML="密码不能用空格";
+                return false;
+            }
+            if(p.test(password)){
+                errmsg.innerHTML="密码不能用空格";
+                return false;
+            }
+            else{
+                errmsg.innerHTML="&nbsp;";
+                return true;
+            }
+        }
+        function goreg() {
+            window.location.href="/goreg";
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default" role="navigation" style="background-color: #ffffff;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <img src="/images/login2.png" alt="" style="width:auto;height: 50px;">
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">关于</a>
+                        </li>
+                        <li>
+                            <a href="#">联系作者</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+
+            <div class="row clearfix">
+                <div class="col-md-8 column" style="margin-top: 5%;">
+                    <img alt="" src="/images/login.png" />
+                </div>
+                <div class="col-md-4 column" style="margin-top: 8%;">
+                    <form role="form" onsubmit="return exam();" method="post">
+                        <div class="form-group">
+                            <label >用户名</label><input placeholder="用户名" class="form-control" id="username" name="username" />
+                        </div>
+                        <div class="form-group">
+                            <label >密码</label><input placeholder="密码" type="password" class="form-control" id="password" name="password"/>
+                            <p id="errmsg" style="color: #b92c28">&nbsp;</p>
+                        </div>
+                        <% if (locals.err) { %>
+                        <div  class="alert alert-success" style="margin-top: 2%;">
+                            <%- err %>
+                        </div>
+                        <% } %>
+                       <button type="submit" class="btn btn-default" style="margin-top: 5%; width: 80%;margin-left: 10%;" onclick=" exam()">登录</button>
+                    </form>
+                    <div>
+                        <a href="/reg" type="submit" class="btn btn-default" style="margin-top: 6%; width: 80%;margin-left: 10%; text-decoration: none;">
+                            注册
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12 column" style="margin-top: 6%;">
+                    <h4>
+                        CMY &nbsp;&nbsp;Contact&nbsp;With&nbsp;You&nbsp;&nbsp;@版权所有&nbsp;&nbsp;2017-8-15
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

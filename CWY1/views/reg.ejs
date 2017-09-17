@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script>
+        function exam() {
+            var username=document.getElementById("exampleInputEmail1").value;
+            var errmsg=document.getElementById("errmsg");
+            var password=document.getElementById("exampleInputPassword1").value;
+            var password1=document.getElementById("password").value;
+            if(username==""&&password==""){
+                errmsg.innerHTML="用户名 密码不能为空";
+                return false;
+            }
+            var p=/\s+/g;
+            if(p.test(username)){
+                errmsg.innerHTML="用户名不能有空格";
+                return false;
+            }
+            if(p.test(password)){
+                errmsg.innerHTML="密码不能有空格";
+                return false;
+            }
+            if(password!==password1){
+                errmsg.innerHTML="两次输入的密码不正确";
+                return false;
+            }
+            else{
+                errmsg.innerHTML="&nbsp;";
+                return true;
+            }
+        }
+
+        $(function () {
+            var a=$("#exampleInputEmail1").val();     //保存输入框的默认值：DefaultValue
+            $("#exampleInputEmail1").change(function(){
+                if($("#exampleInputEmail1").val()!=a){    //输入框内容发生变化 发送json
+                     a=$("#exampleInputEmail1").val();
+                    $.ajax({
+                        url:"/checkid",
+                        type:"post",
+                        contentType: "application/json",
+                        data:JSON.stringify({
+                            'username':a
+                        }),
+                        processData:false,
+                        success:function(data){
+                            var arr=data.split(',');
+                            document.getElementById("errmsg").innerHTML=arr[0];
+                            if(arr[1]==0){
+                               document.getElementById("sub").disabled=true;
+                            }else {
+                                document.getElementById("sub").disabled=false;
+                            }
+                        },
+                        error:function(e){
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default" role="navigation" style="background-color: #ffffff;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <img src="/images/login2.png" alt="" style="width:auto;height: 50px;">
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">关于</a>
+                        </li>
+                        <li>
+                            <a href="#">联系作者</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+            <div class="row clearfix">
+                <div class="col-md-8 column" style="margin-top: 2%;">
+                    <h3>
+                        用户注册信息填写
+                    </h3>
+                    <form role="form" style="margin-top: 5%;" onsubmit="return exam();" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">用户名</label><input class="form-control" id="exampleInputEmail1" style="width: 50%;" placeholder="不可为空" name="username"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">密码</label><input type="password" class="form-control" id="exampleInputPassword1" style="width: 50%;" placeholder="不能包含空格" name="password"/>
+                        </div>
+                        <div class="form-group">
+                            <label >再次输入密码</label><input type="password" class="form-control" style="width: 50%;" id="password"/>
+                        </div>
+                        <h4 id="errmsg" style="color: #b92c28;"></h4>
+                         <button id="sub" type="submit" class="btn btn-default" style="margin-top: 1%; width: 33%;" >提交</button>
+                    </form>
+                    <% if (locals.success) { %>
+                    <div id="alt_sucess" class="alert alert-success" style="margin-top: 2%;">
+                        <%- success %>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12 column" style="margin-top:3%;">
+                    <h4>
+                        CMY &nbsp;&nbsp;Contact&nbsp;With&nbsp;You&nbsp;&nbsp;@版权所有&nbsp;&nbsp;2017-8-15
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

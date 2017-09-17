@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+          <% include top.ejs%>
+            <div class="row clearfix" style="margin-top: 3%;">
+                <div class="col-md-4 column">
+                    <img alt="" src="/images/login2.png" class="img-circle" style="width: 120px;height: 120px;border-radius: 60px; border: 1px solid #666666; margin-left: 25%;" />
+                </div>
+                <div class="col-md-8 column">
+                    <h3>
+                        <%= username %>
+                    </h3>
+                    <p>
+                       欢迎来到Contact &nbsp;&nbsp;With&nbsp;&nbsp;You&nbsp;!
+                    </p>
+                </div>
+            </div>
+            <div class="row clearfix" style="margin-top: 5%;">
+                <div class="col-md-9 column">
+                    <div class="row clearfix">
+                        <div class="col-md-4 column">
+                            <ul class="nav nav-stacked nav-pills">
+                                <li>
+                                    <a href="/person/<%= username%>" onclick="clickPer()">个人中心</a>
+                                </li>
+                                <li>
+                                    <a href="/page/one">Talk</a>
+                                </li>
+                                <li >
+                                    <a href="/mypage/<%= username %>/one">心情随笔</a>
+                                </li>
+                                <li >
+                                    <a href="#">更多</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 column" style="border: 2px solid #888888; border-radius: 2%;">
+                            <div id="per2">
+                                <h3>
+                                    终于等到你 &nbsp;&nbsp;还好我没放弃
+                                </h3>
+                                <p>
+                                    我爱你，如鲸向海，鸟投林。不可避免，退无可退。</p>
+                                    <p>——黄碧云  </p>
+                                    <p>当心空无一物，它便无边无涯。 树在，山在，大地在，岁月在，我在，你还要怎样更好的世界。</p>
+                                <p>——张晓风《我在》</p>
+                                    <p>你走，我不会送你。你来，不管多大的风多大的雨，我都会去接你。 </p>
+                                        <p>——粱秋实《送行》</p>
+                            </div>
+
+                            <div id="diary2" style="display: none">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 column">
+                    <ul class="nav nav-tabs nav-stacked">
+                        <li class="active" >
+                            <a href="#" style="background-color: #999999;">联系人</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">张三</a>
+                        </li>
+                        <li>
+                            <a href="#">李四</a>
+                        </li>
+                        <li class="disabled">
+                            <a href="#">王五</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12 column" style="margin-top:3%;">
+                    <h4>
+                        CMY &nbsp;&nbsp;Contact&nbsp;With&nbsp;You&nbsp;&nbsp;@版权所有&nbsp;&nbsp;2017-8-15
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
